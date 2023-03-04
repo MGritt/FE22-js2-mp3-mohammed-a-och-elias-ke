@@ -19,7 +19,9 @@ class Product{
         let picture = document.createElement('img');
         let name = document.createElement('h1');
         let description = document.createElement('p');
-        let price = object.Price;
+        let price = document.createElement('p');
+        let Inventory = document.createElement('p');
+
         
         
     }
