@@ -19,7 +19,8 @@ let obj =     {
     "Description": "The Lyle & Scott Ribbed Quarter Men's Zip Jumper, with a zipper at the neck and signature Golden Eagle badge, is a winter must-have that can be dressed up, kept casual, and paired with just about anything.",
     "Name": "Lyle & Scott",
     "Picture": "https://lp2.hm.com/hmgoepprod?set=source[/00/e6/00e606ff38f4fedc37fcaa4d1cc6df237c2a827d.jpg],origin[dam],category[],type[DESCRIPTIVESTILLLIFE],res[w],hmver[2]&call=url[file:/product/main]",
-    "Price": "650kr"
+    "Price": 650,
+    "Inventory" : 100
   };
 
 let container = document.querySelector('#container');
