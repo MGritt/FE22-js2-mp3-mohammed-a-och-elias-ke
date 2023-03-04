@@ -1,0 +1,30 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #080808;
+    height: 80px;
+    padding: 0 20px;
+  }
+  
+  nav {
+    flex-grow: 1;
+  }
+
+  ul {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    margin-left: 20px;
+  }
+  
+  img {
+    width: 40px;
+    height: auto;
+    margin-right: 20px;
+  }
