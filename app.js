@@ -22,4 +22,5 @@ let obj =     {
     "Price": "650kr"
   };
 
-let theObj = new Product(obj);
+let container = document.querySelector('#container');
+let theObj = new Product(obj, container);
