@@ -31,7 +31,7 @@ class Product {
     name.innerText = this.#Name;
     description.innerText = this.#Description;
     price.innerText= `${this.#Price}kr`;
-    inventory.innerText=this.#Inventory
+    inventory.innerText=`${this.#Inventory}st`
     console.log(this.#Inventory);
     
     let container = document.getElementById('container');
