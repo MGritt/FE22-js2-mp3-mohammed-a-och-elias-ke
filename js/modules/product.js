@@ -15,9 +15,13 @@ class Product{
         this.#Inventory = object.Inventory;
     }
     addToContainer(){
-        let container = document.querySelector('#container');
         let product = document.createElement('div');
-
+        let picture = document.createElement('img');
+        let name = document.createElement('h1');
+        let description = document.createElement('p');
+        let price = object.Price;
+        
+        
     }
 }
 
