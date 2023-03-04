@@ -13,6 +13,7 @@ class Product{
         this.#Picture = object.Picture;
         this.#Price = object.Price;
         this.#Inventory = object.Inventory;
+        addToContainer();
     }
     addToContainer(){
         let product = document.createElement('div');
@@ -21,9 +22,6 @@ class Product{
         let description = document.createElement('p');
         let price = document.createElement('p');
         let Inventory = document.createElement('p');
-
-        
-        
     }
 }
 
