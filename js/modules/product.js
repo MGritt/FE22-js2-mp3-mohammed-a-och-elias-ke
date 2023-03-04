@@ -4,17 +4,20 @@ class Product{
     #Picture;
     #Price;
     #Inventory;
+    #Container;
     
-    constructor(object){
-        console.log(object);
-        //let {this.#Description} = object;
-        //console.log (this.#Description);
-        let {Description} = object;
-        console.log(Description);
+    constructor(object, container){
+        this.#Container = container;
         this.#Description = object.Description;
-        console.log(this.#Description);
+        this.#Name = object.Name;
+        this.#Picture = object.Picture;
+        this.#Price = object.Price;
+        this.#Inventory = object.Inventory;
+    }
+    addToContainer(){
+        let container = document.querySelector('#container');
+        let product = document.createElement('div');
 
-        //{this.#Description, this.#Name, this.#Picture, this.#Price, this.#Inventory} = object;
     }
 }
 
