@@ -1,25 +1,30 @@
-class Product {
+import {CartManager} from './cartManager.js';
+
+class Product extends CartManager{
   #Description;
   #Name;
   #Picture;
   #Price;
   #Inventory;
   #Container;
-  #AddtoButton
+  //#AddtoButton
+  #ProductID
+  #Super
 
   constructor(object, container) {
-
+    super();
     this.#Container = container;
+    this.#ProductID = object.id;
     this.#Description = object.Description;
     this.#Name = object.Name;
     this.#Picture = object.Picture;
     this.#Price = object.Price;
     this.#Inventory = object.Inventory;
-    this.#AddtoButton = object.AddtoButton
+    //this.#AddtoButton = object.AddtoButton
     this.addToContainer();
-    this.addToCard(0 ,100);
-    this.removeToCard(0,10)
-    this.clearToCard(0,)
+    //this.addToCard(0 ,100);
+    //this.removeToCard(0,10)
+    //this.clearToCard(0,)
   }
   addToContainer() {
     let product = document.createElement("div");
@@ -40,9 +45,8 @@ class Product {
     button.innerText ='lägg till varukorg'
     price.innerText= `${this.#Price}`;
     inventory.innerText=`${this.#Inventory}st`
-    console.log(this.#Inventory);
+    //console.log(this.#Inventory);
     
-    let container = document.getElementById('container');
     
     this.#Container.append(product);
     product.append(picture);
@@ -51,46 +55,24 @@ class Product {
     product.appendChild(price);
     product.appendChild(inventory);
     product.appendChild(button)
-    
-
-
+    let productId = this.#ProductID;
+    let self = this;
+    button.addEventListener('click', function(){
+      self.addToCart(productId, 1);
+    })
   }
 
-  addToCard (item , amount){
-    
-    let userAmount = sessionStorage.getItem(item)
-
-    if(userAmount && userAmount != 'null'){
-      userAmount = Number(userAmount)+amount
-      console.log(userAmount);
-      sessionStorage.setItem(item , userAmount)
-    }
-    else { 
-      sessionStorage.setItem(item , amount)
-    }
+  addToCart(item , amount){
+    super.addToCart(item , amount);
   }
 
-  removeToCard (item , amount){
-
-    let userAmount = sessionStorage.getItem(item)
-    if(userAmount && userAmount != 'null'){
-      userAmount = Number(userAmount)-amount
-      console.log(userAmount);
-      sessionStorage.setItem(item , userAmount)
-    }
-    else { 
-      sessionStorage.setItem(item , amount)
-    }
-    
+  removeFromCart(item , amount){
+    super.removeFromCart(item , amount);
   }
 
-  clearToCard (item){
-    sessionStorage.setItem(item, 'null')
-    let userAmount = sessionStorage.getItem(item)
-    console.log(userAmount)
+  clearCart(item , amount){
+    super.clearCart(item , amount);
   }
-
-
 }
 
 export { Product };
