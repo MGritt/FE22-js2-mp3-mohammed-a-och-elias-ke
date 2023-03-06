@@ -16,7 +16,9 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 
+
 let container = document.querySelector('#container');
+
 
 let Array = [    {
   "Description": "The Lyle & Scott Ribbed Quarter Men's Zip Jumper, with a zipper at the neck and signature Golden Eagle badge, is a winter must-have that can be dressed up, kept casual, and paired with just about anything.",

@@ -6,6 +6,57 @@ header {
     height: 80px;
     padding: 0 20px;
   }
+   
+
+  #container {
+    display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  }
+
+  .product {
+    background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  width: 300px;
+  height: 400px;
+  margin: 20px;
+  }
+  
+  .product img {
+    width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+  }
+  
+  .product h1 {
+    font-size: 24px;
+    margin-top: 10px;
+  }
+  
+  .product p {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  .product button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 18px;
+    margin-top: 0px;
+    cursor: pointer;
+  }
+  
+  .product button:hover {
+    background-color: #3e8e41;
+  }
   
   nav {
     flex-grow: 1;

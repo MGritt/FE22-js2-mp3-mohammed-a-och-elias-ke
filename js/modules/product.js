@@ -5,6 +5,7 @@ class Product {
   #Price;
   #Inventory;
   #Container;
+  #AddtoButton
 
   constructor(object, container) {
 
@@ -14,6 +15,7 @@ class Product {
     this.#Picture = object.Picture;
     this.#Price = object.Price;
     this.#Inventory = object.Inventory;
+    this.#AddtoButton = object.AddtoButton
     this.addToContainer();
     this.addToCard(0 ,100);
     this.removeToCard(0,10)
@@ -26,11 +28,17 @@ class Product {
     let description = document.createElement("p");
     let price = document.createElement("p");
     let inventory = document.createElement("p");
+    let button = document.createElement("button")
+  
 
     picture.src = this.#Picture;
     name.innerText = this.#Name;
     description.innerText = this.#Description;
-    price.innerText= `${this.#Price}kr`;
+    product.setAttribute('class', 'product')
+    
+
+    button.innerText ='lägg till varukorg'
+    price.innerText= `${this.#Price}`;
     inventory.innerText=`${this.#Inventory}st`
     console.log(this.#Inventory);
     
@@ -42,6 +50,8 @@ class Product {
     product.appendChild(description);
     product.appendChild(price);
     product.appendChild(inventory);
+    product.appendChild(button)
+    
 
 
   }
