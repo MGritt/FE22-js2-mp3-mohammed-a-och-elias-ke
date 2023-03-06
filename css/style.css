@@ -1,3 +1,14 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Arimo:ital@1&family=Dosis:wght@400;500&family=Phudu&display=swap');
+
+
+body{
+  font-family: 'Arimo', sans-serif;
+  font-family: 'Dosis', sans-serif;
+  font-family: 'Phudu', cursive;
+
+}
+
 header {
     display: flex;
     justify-content: space-between;
