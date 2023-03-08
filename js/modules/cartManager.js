@@ -56,7 +56,6 @@ class CartManager {
       }
       sessionStorage.setItem('cart', JSON.stringify(cartSession)); 
       let userSessionStorage = sessionStorage.getItem('cart')
-      console.log(userSessionStorage);
       this.writeUserData(this.#uid, userSessionStorage);
     }
   
@@ -74,18 +73,23 @@ class CartManager {
         };
         cartSession.push(add);
       }
-      if (cartSession && cartSession.length > 0){
-        cartSession.forEach(function(itema){
-        if (itema.id == item){
-          itema.amount = itema.amount - amount;
-         }
-      })
       if(!JSON.stringify(cartSession).includes(`"id":${item}`)){
         let add = {
           'id': item,
           'amount': amount
         };
         cartSession.push(add);
+        }
+      if (cartSession && cartSession.length > 0){
+        for(let i = 0; cartSession.length > i; i++){
+          if(cartSession[i].amount == 0){
+            cartSession.splice(i, 1);
+          } else if (cartSession[i].id == item){
+            cartSession[i].amount = cartSession[i].amount - amount;
+            if(cartSession[i].amount == 0){
+              cartSession.splice(i, 1);
+            }
+           }
         }
       }
       sessionStorage.setItem('cart', JSON.stringify(cartSession)); 

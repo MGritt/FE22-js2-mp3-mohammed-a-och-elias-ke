@@ -26,6 +26,7 @@ class Kundvagn extends CartManager{
       }
 
       addToContainer(container, object, amount){
+        let self = this;
         const img = document.createElement('img');
         img.src = object.Picture;
         const li = document.createElement('li');
@@ -33,8 +34,20 @@ class Kundvagn extends CartManager{
         p1.innerText = object.Name;
         const p2 = document.createElement('p');
         p2.innerText = amount+'st';
+        const removeBtn = document.createElement('button');
+        removeBtn.innerText = '-';
+        removeBtn.addEventListener('click', function(){
+          self.removeFromCart(object.id, 1);
+          return self.loadCart(container);
+        })
+        const addBtn = document.createElement('button');
+        addBtn.innerText = '+';
+        addBtn.addEventListener('click', function(){
+          self.addToCart(object.id, 1);
+          return self.loadCart(container);
+        })
         container.append(li);
-        li.append(img, p1, p2)
+        li.append(img, p1, p2, removeBtn, addBtn)
       }
 
       async loadCart(container){
@@ -71,12 +84,13 @@ class Kundvagn extends CartManager{
         clearBtn.innerText = 'Töm kundvagnen';
         clearBtn.addEventListener('click', function(){
           self.clearCart();
-          self.loadCart(container);
+          return self.loadCart(container);
         })
         document.body.insertBefore(div, footer);
         div.append(h1, ul, p, span, buyBtn, clearBtn)              
         this.#Cart = this.getCart();
         let x = 0;
+        this.#TotaltPris = 0;
         if(this.#Cart != null){
           this.#Cart.forEach(async function(item){
             x++;
