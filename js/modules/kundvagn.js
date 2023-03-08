@@ -15,6 +15,7 @@ class Kundvagn extends CartManager{
       loadCart(container){
         this.#Cart = this.getCart();
         console.log(this.#Cart);
+        let test = JSON.stringify(this.#Cart);
         this.#Cart.forEach(function(item){
             console.log(item);
             //load item.id data from 

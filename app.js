@@ -60,11 +60,10 @@ let Array = [    {
   "Picture": "https://lp2.hm.com/hmgoepprod?set=quality%5B79%5D%2Csource%5B%2F78%2F2f%2F782fdbe41f9fa26a0b4314540f2a15ed8941aca0.jpg%5D%2Corigin%5Bdam%5D%2Ccategory%5B%5D%2Ctype%5BLOOKBOOK%5D%2Cres%5Bm%5D%2Chmver%5B1%5D&call=url[file:/product/main]",
   "Price": "1599kr",
   "Inventory" : 100
-},]
+}]
 
 Array.forEach(obj =>{
   new Product(obj, container);
-  
 })
 
 const kundvagn = document.querySelector('.kundvagn');
@@ -72,3 +71,5 @@ kundvagn.addEventListener('click', function(){
   let k = new Kundvagn();
   k.loadCart();
 })
+
+
