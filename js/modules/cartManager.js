@@ -33,13 +33,6 @@ class CartManager {
       if(jsonStorage){
         cartSession.push(...jsonStorage);
       }
-      if (cartSession.length == 0){
-        let add = {
-          'id': item,
-          'amount': amount
-        };
-        cartSession.push(add);
-      }
       if (cartSession && cartSession.length > 0){
         cartSession.forEach(function(itema){
         if (itema.id == item){
@@ -54,8 +47,16 @@ class CartManager {
         cartSession.push(add);
         }
       }
+      if (cartSession.length == 0){
+        let add = {
+          'id': item,
+          'amount': amount
+        };
+        cartSession.push(add);
+      }
       sessionStorage.setItem('cart', JSON.stringify(cartSession)); 
       let userSessionStorage = sessionStorage.getItem('cart')
+      console.log(userSessionStorage);
       this.writeUserData(this.#uid, userSessionStorage);
     }
   

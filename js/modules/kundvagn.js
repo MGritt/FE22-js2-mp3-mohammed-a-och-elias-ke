@@ -76,12 +76,14 @@ class Kundvagn extends CartManager{
         document.body.insertBefore(div, footer);
         div.append(h1, ul, p, span, buyBtn, clearBtn)              
         this.#Cart = this.getCart();
+        let x = 0;
         if(this.#Cart != null){
           this.#Cart.forEach(async function(item){
+            x++;
             let obj = await self.getProduct(item.id);
             self.addToContainer(ul, obj, item.amount)
             self.#TotaltPris = self.#TotaltPris + (obj.Price*item.amount);
-            if(self.#Cart.length == item.id){
+            if(self.#Cart.length == x){
               span.innerText = `${self.#TotaltPris}kr`
             }
           })
