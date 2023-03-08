@@ -29,9 +29,13 @@ class CartManager {
       });      
     }
 
-    writeLagerData(id, newInventory){
+    writeLagerData(id, productData, newInventory){
       set(ref(db, 'Product/' + id), {
-        Inventory: newInventory
+        Description: productData.Description,
+        Inventory: newInventory,
+        Name: productData.Name,
+        Price: productData.Price,
+        id: productData.id
       });      
     }
   
@@ -121,7 +125,7 @@ class CartManager {
             buyBtn.style.backgroundColor = 'red';
           } else {
             console.log(newInventory);
-            self.writeLagerData(product.id, newInventory);
+            self.writeLagerData(product.id, productData, newInventory);
           }
         });
       }
