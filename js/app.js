@@ -1,7 +1,7 @@
-import {Product} from './js/modules/product.js';
+import {Product} from './modules/product.js';
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
 import { getDatabase, ref, child, get, set} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
-import {Kundvagn} from './js/modules/kundvagn.js';
+import {Kundvagn} from './modules/kundvagn.js';
 const firebaseConfig = {
     apiKey: "AIzaSyAxYjwhJsPGuWHGVtR7q0LFzcjZf4MNG5g",
     authDomain: "storemp3-a5386.firebaseapp.com",
@@ -56,10 +56,8 @@ if(!getCookie('user')){
 get(child(dbRef, `Session/User/${uid}`)).then((snapshot) => {
   if (snapshot.exists()) {
     let val = snapshot.val();
-    console.log(val.cart);
     sessionStorage.setItem('cart', val.cart);
   } else {
-    console.log("No data available");
     writeUserData(uid, '[]')
   }
 }).catch((error) => {

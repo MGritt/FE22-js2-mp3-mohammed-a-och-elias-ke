@@ -102,7 +102,6 @@ class Kundvagn extends CartManager{
             }
           }
         } catch (error) {
-          console.error(error);
           return error;
         }
       }
