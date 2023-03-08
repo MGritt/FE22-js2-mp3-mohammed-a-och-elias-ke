@@ -80,15 +80,22 @@ header {
   }
 
   ul {
-    flex-basis: 50%;
     padding-top: 1rem;
     display: flex;
+    flex-direction: column;
     list-style: none;
     margin: 0;
   }
   
   li {
-    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding:1rem;
+  }
+
+  li p {
+    margin: 1rem;
   }
 
   .kundvagn {

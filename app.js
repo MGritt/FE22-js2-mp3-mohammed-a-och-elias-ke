@@ -81,8 +81,8 @@ get(child(dbRef, `Product/`)).then((snapshot) => {
 
 const kundvagn = document.querySelector('.kundvagn');
 kundvagn.addEventListener('click', function(){
-  let k = new Kundvagn();
-  k.loadCart();
+  let k = new Kundvagn(uid);
+  k.loadCart(container);
 })
 
 
