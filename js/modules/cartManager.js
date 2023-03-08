@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-import { getDatabase, ref, set} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+import { getDatabase, ref, set, get, child} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 const firebaseConfig = {
   apiKey: "AIzaSyAxYjwhJsPGuWHGVtR7q0LFzcjZf4MNG5g",
   authDomain: "storemp3-a5386.firebaseapp.com",
@@ -12,17 +12,26 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const dbRef = ref(db);
 
 class CartManager {
     #ProductID
+    #Products;
     #uid
     constructor(uid) {
+      this.#Products = [];
       this.#uid = uid;
     }
 
     writeUserData(uid, cartSession){
       set(ref(db, 'Session/' + 'User/' + uid), {
         cart: cartSession
+      });      
+    }
+
+    writeLagerData(id, newInventory){
+      set(ref(db, 'Product/' + id), {
+        Inventory: newInventory
       });      
     }
   
@@ -97,10 +106,45 @@ class CartManager {
       this.writeUserData(this.#uid, userSessionStorage);
     }
   
+    purchase(){
+      let self = this;
+      let userSessionStorage = sessionStorage.getItem('cart');
+      userSessionStorage = JSON.parse(userSessionStorage);
+      if(userSessionStorage != null){
+        userSessionStorage.forEach(async function(product){
+          let productData = await self.getProduct(product.id)
+          console.log(productData)
+          let newInventory = productData.Inventory - product.amount;
+          if(product.amount > productData.Inventory){
+            let buyBtn = document.querySelector('#buyButton');
+            buyBtn.innerText = 'Begärd antal finns ej i lager';
+            buyBtn.style.backgroundColor = 'red';
+          } else {
+            console.log(newInventory);
+            self.writeLagerData(product.id, newInventory);
+          }
+        });
+      }
+    }
+
     clearCart (){
       sessionStorage.setItem('cart', 'null');
       let userSessionStorage = sessionStorage.getItem('cart');
       this.writeUserData(this.#uid, userSessionStorage);
+    }
+
+    async getProduct(id) {
+      try {
+        const snapshot = await get(child(dbRef, `Product/${id-1}/`));
+        if (snapshot.exists()) {
+          const product = snapshot.val();
+          if (!this.#Products.includes(product)) {
+            return product;
+          }
+        }
+      } catch (error) {
+        return error;
+      }
     }
   }
   

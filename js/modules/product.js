@@ -43,8 +43,8 @@ class Product extends CartManager{
     
 
     button.innerText ='lägg till varukorg'
-    price.innerText= `${this.#Price}`;
-    inventory.innerText=`${this.#Inventory}st`
+    price.innerText= `${this.#Price} kr`;
+    inventory.innerText=`${this.#Inventory} st i lager`
     //console.log(this.#Inventory);
     
     
@@ -58,20 +58,13 @@ class Product extends CartManager{
     let productId = this.#ProductID;
     let self = this;
     button.addEventListener('click', function(){
-      self.addToCart(productId, 1);
+      if(self.#Inventory > 0){
+        self.addToCart(productId, 1);
+      } else {
+        button.innerText = 'Slut på lager!'
+        button.style.backgroundColor = 'red';
+      }
     })
-  }
-
-  addToCart(item , amount){
-    super.addToCart(item , amount);
-  }
-
-  removeFromCart(item , amount){
-    super.removeFromCart(item , amount);
-  }
-
-  clearCart(item , amount){
-    super.clearCart(item , amount);
   }
 }
 

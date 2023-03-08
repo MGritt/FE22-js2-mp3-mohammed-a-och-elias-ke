@@ -1,6 +1,6 @@
 import {CartManager} from './cartManager.js';
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-import { getDatabase, ref, child, get} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+import { getDatabase, ref} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 const firebaseConfig = {
     apiKey: "AIzaSyAxYjwhJsPGuWHGVtR7q0LFzcjZf4MNG5g",
     authDomain: "storemp3-a5386.firebaseapp.com",
@@ -15,11 +15,9 @@ const db = getDatabase(app);
 const dbRef = ref(db);
 class Kundvagn extends CartManager{
     #Cart;
-    #Products;
     #TotaltPris;
     constructor(uid) {
         super(uid);
-        this.#Products = [];
         this.#TotaltPris = 0;
         //this.addToContainer();
         //this.getCart();
@@ -50,6 +48,17 @@ class Kundvagn extends CartManager{
         li.append(img, p1, p2, removeBtn, addBtn)
       }
 
+      success(container){
+        container.innerHTML = '';
+        const k = document.querySelector('.k');
+        if(k){
+          k.remove();
+        }
+        const h1 = document.createElement('h1');
+        h1.innerText = 'tack för ditt köp!';
+        container.append(h1);
+      }
+
       async loadCart(container){
         let self = this;
         container.innerHTML = '';
@@ -77,7 +86,9 @@ class Kundvagn extends CartManager{
         buyBtn.setAttribute('id', 'buyButton');
         buyBtn.innerText = 'Genomför köp';
         buyBtn.addEventListener('click', function(){
-          //run buy function
+          self.purchase();
+          self.clearCart();
+          return self.success(container);
         })
         const clearBtn = document.createElement('button');
         clearBtn.setAttribute('id', 'clearCart');
@@ -106,32 +117,6 @@ class Kundvagn extends CartManager{
 
       getCart(){
         return JSON.parse(sessionStorage.getItem('cart'));
-      }
-
-      async getProduct(id) {
-        try {
-          const snapshot = await get(child(dbRef, `Product/${id-1}/`));
-          if (snapshot.exists()) {
-            const product = snapshot.val();
-            if (!this.#Products.includes(product)) {
-              return product;
-            }
-          }
-        } catch (error) {
-          return error;
-        }
-      }
-
-      addToCart(item , amount){
-        super.addToCart(item , amount);
-      }
-    
-      removeFromCart(item , amount){
-        super.removeFromCart(item , amount);
-      }
-    
-      clearCart(){
-        super.clearCart();
       }
 }
 
