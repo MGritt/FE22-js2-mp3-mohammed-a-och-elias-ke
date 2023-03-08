@@ -24,7 +24,7 @@ class Kundvagn extends CartManager{
       }
 
       getCart(){
-        return { ...sessionStorage };
+        return JSON.parse(sessionStorage.getItem('cart'));
       }
 
       addToCart(item , amount){

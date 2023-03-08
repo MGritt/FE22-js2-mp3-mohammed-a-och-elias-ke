@@ -11,8 +11,8 @@ class Product extends CartManager{
   #ProductID
   #Super
 
-  constructor(object, container) {
-    super();
+  constructor(object, container, uid) {
+    super(uid);
     this.#Container = container;
     this.#ProductID = object.id;
     this.#Description = object.Description;

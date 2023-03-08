@@ -1,6 +1,6 @@
 import {Product} from './js/modules/product.js';
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-import { getDatabase } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+import { getDatabase, ref, child, get, set} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 import {Kundvagn} from './js/modules/kundvagn.js';
 const firebaseConfig = {
     apiKey: "AIzaSyAxYjwhJsPGuWHGVtR7q0LFzcjZf4MNG5g",
@@ -13,9 +13,59 @@ const firebaseConfig = {
   };
   
 const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+const db = getDatabase(app);
 
+const writeUserData = (uid, cartSession) => {
+  set(ref(db, 'Session/' + 'User/' + uid), {
+    cart: cartSession
+  });
+}
 
+const getCookie = (cookie) => {
+  const name = cookie + "=";
+  const cDecoded = decodeURIComponent(document.cookie);
+  const cArr = cDecoded.split("; ");
+  let value;
+  cArr.forEach((val) => {
+     if (val.indexOf(name) === 0) value = val.substring(name.length);
+   });
+  return value;
+};
+
+const getId = (x) => {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const length = characters.length;
+  let y = 0;
+  while (y < x) {
+    result += characters.charAt(Math.floor(Math.random() * length));
+    y += 1;
+  }
+  return result;
+}
+
+let uid;
+
+if(!getCookie('user')){
+  uid = getId(12+(Math.floor(Math.random() * 24)))
+  document.cookie = `user=${uid}`;
+} else {
+  uid = getCookie('user');
+}
+
+const dbRef = ref(getDatabase(app));
+get(child(dbRef, `Session/User/${uid}`)).then((snapshot) => {
+  if (snapshot.exists()) {
+    let val = snapshot.val();
+    console.log(val.cart);
+    sessionStorage.setItem('cart', val.cart);
+  } else {
+    console.log("No data available");
+    writeUserData(uid, '[]')
+  }
+}).catch((error) => {
+  console.error(error);
+});
 
 let container = document.querySelector('#container');
 
@@ -63,7 +113,7 @@ let Array = [    {
 }]
 
 Array.forEach(obj =>{
-  new Product(obj, container);
+  new Product(obj, container, uid);
 })
 
 const kundvagn = document.querySelector('.kundvagn');
