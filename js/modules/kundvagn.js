@@ -52,7 +52,7 @@ class Kundvagn extends CartManager{
           if (snapshot.exists()) {
             const product = snapshot.val();
             if(!this.#Products.includes(product)){
-              console.log(product);
+              console.log(product); //product obj funkar men i return blir undefined?
               return JSON.stringify(product); //returns undefined?
               /* funkar inte
               this.#Products.push(product);
