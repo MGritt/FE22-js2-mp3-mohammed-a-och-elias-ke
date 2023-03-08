@@ -80,6 +80,19 @@ header {
   }
 
   ul {
+    flex-basis: 50%;
+    padding-top: 1rem;
+    display: flex;
+    list-style: none;
+    margin: 0;
+  }
+  
+  li {
+    margin-left: 20px;
+  }
+
+
+  .k ul {
     padding-top: 1rem;
     display: flex;
     flex-direction: column;
@@ -87,14 +100,14 @@ header {
     margin: 0;
   }
   
-  li {
+  .k li {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     padding:1rem;
   }
 
-  li p {
+  .k li p {
     margin: 1rem;
   }
 
