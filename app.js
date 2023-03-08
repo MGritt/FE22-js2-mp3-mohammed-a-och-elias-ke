@@ -48,7 +48,7 @@ let uid;
 
 if(!getCookie('user')){
   uid = getId(12+(Math.floor(Math.random() * 24)))
-  document.cookie = `user=${uid}`;
+  document.cookie = `user=${uid};path=/;max-age=31536000;`;
 } else {
   uid = getCookie('user');
 }
