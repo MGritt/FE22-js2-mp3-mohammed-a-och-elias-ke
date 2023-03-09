@@ -30,16 +30,19 @@ class CartManager {
     }
 
     writeLagerData(id, productData, newInventory){
+      id = id-1;
       set(ref(db, 'Product/' + id), {
         Description: productData.Description,
         Inventory: newInventory,
         Name: productData.Name,
+        Picture: productData.Picture,
         Price: productData.Price,
         id: productData.id
       });      
     }
   
-    addToCart (item , amount){
+    async addToCart (item , amount){
+      let self = this;
       let cartSession = [];
       let inStorage = sessionStorage.getItem('cart');
       let jsonStorage = JSON.parse(inStorage);
@@ -47,11 +50,15 @@ class CartManager {
         cartSession.push(...jsonStorage);
       }
       if (cartSession && cartSession.length > 0){
-        cartSession.forEach(function(itema){
-        if (itema.id == item){
-          itema.amount = itema.amount + amount;
-         }
-      })
+        for (let itema of cartSession) {
+          if (itema.id == item) {
+            let productData = await self.getProduct(itema.id)
+            if ((productData.Inventory - itema.amount) <= 0) {
+              return console.log('finns ej fler i lager');
+            }
+            itema.amount = itema.amount + amount;
+          }
+        }
       if(!JSON.stringify(cartSession).includes(`"id":${item}`)){
         let add = {
           'id': item,
@@ -117,15 +124,15 @@ class CartManager {
       if(userSessionStorage != null){
         userSessionStorage.forEach(async function(product){
           let productData = await self.getProduct(product.id)
-          console.log(productData)
           let newInventory = productData.Inventory - product.amount;
           if(product.amount > productData.Inventory){
             let buyBtn = document.querySelector('#buyButton');
             buyBtn.innerText = 'Begärd antal finns ej i lager';
             buyBtn.style.backgroundColor = 'red';
+            return;
           } else {
-            console.log(newInventory);
             self.writeLagerData(product.id, productData, newInventory);
+            self.clearCart();
           }
         });
       }
