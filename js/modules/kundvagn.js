@@ -34,14 +34,14 @@ class Kundvagn extends CartManager{
         p2.innerText = amount+'st';
         const removeBtn = document.createElement('button');
         removeBtn.innerText = '-';
-        removeBtn.addEventListener('click', function(){
-          self.removeFromCart(object.id, 1);
+        removeBtn.addEventListener('click', async function(){
+          await self.removeFromCart(object.id, 1);
           return self.loadCart(container);
         })
         const addBtn = document.createElement('button');
         addBtn.innerText = '+';
-        addBtn.addEventListener('click', function(){
-          self.addToCart(object.id, 1);
+        addBtn.addEventListener('click', async function(){
+          await self.addToCart(object.id, 1);
           return self.loadCart(container);
         })
         container.append(li);
@@ -86,8 +86,8 @@ class Kundvagn extends CartManager{
         buyBtn.setAttribute('id', 'buyButton');
         buyBtn.innerText = 'Genomför köp';
         buyBtn.addEventListener('click', function(){
+          console.log('okay')
           self.purchase();
-          self.clearCart();
           return self.success(container);
         })
         const clearBtn = document.createElement('button');
