@@ -77,6 +77,8 @@ class CartManager {
       sessionStorage.setItem('cart', JSON.stringify(cartSession)); 
       let userSessionStorage = sessionStorage.getItem('cart')
       this.writeUserData(this.#uid, userSessionStorage);
+
+      display
     }
   
     removeFromCart (item , amount){
