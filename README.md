@@ -6,10 +6,13 @@
 Mohammed. / skrev JS funktionerna för cart display & cart manager (addToCart, removeFromCart, clearCart) samt user session sparande i firebase och sessionStorage + sparar UID för session i cookie.
 
 
-Användning:
+# Användning:
 
 git clone repo
 
 npm install
 
 kör i vscode (go live)
+
+
+
