@@ -16,6 +16,7 @@ const dbRef = ref(db);
 class Kundvagn extends CartManager{
     #Cart;
     #TotaltPris;
+    #Inventory;
     constructor(uid) {
         super(uid);
         this.#TotaltPris = 0;
@@ -25,6 +26,7 @@ class Kundvagn extends CartManager{
 
       addToContainer(container, object, amount){
         let self = this;
+        this.#Inventory = object.Inventory;
         const img = document.createElement('img');
         img.src = object.Picture;
         const li = document.createElement('li');
@@ -40,9 +42,13 @@ class Kundvagn extends CartManager{
         })
         const addBtn = document.createElement('button');
         addBtn.innerText = '+';
+        addBtn.classList.add(`btn${object.id}`);
         addBtn.addEventListener('click', async function(){
           await self.addToCart(object.id, 1);
-          return self.loadCart(container);
+          console.log(self.#Inventory);
+          if(self.#Inventory > amount){
+            return self.loadCart(container);
+          }
         })
         container.append(li);
         li.append(img, p1, p2, removeBtn, addBtn)

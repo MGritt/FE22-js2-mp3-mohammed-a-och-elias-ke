@@ -15,11 +15,12 @@ const db = getDatabase(app);
 const dbRef = ref(db);
 
 class CartManager {
-    #ProductID
     #Products;
-    #uid
+    #uid;
+    #totalCart;
     constructor(uid) {
       this.#Products = [];
+      this.#totalCart = 0;
       this.#uid = uid;
     }
 
@@ -54,7 +55,10 @@ class CartManager {
           if (itema.id == item) {
             let productData = await self.getProduct(itema.id)
             if ((productData.Inventory - itema.amount) <= 0) {
-              return console.log('finns ej fler i lager');
+              const buyBtn = document.querySelector(`.btn${item}`)
+              buyBtn.innerText = 'Finns ej fler i lager!'
+              buyBtn.style.backgroundColor = 'red';
+              return;
             }
             itema.amount = itema.amount + amount;
           }
@@ -77,8 +81,7 @@ class CartManager {
       sessionStorage.setItem('cart', JSON.stringify(cartSession)); 
       let userSessionStorage = sessionStorage.getItem('cart')
       this.writeUserData(this.#uid, userSessionStorage);
-
-      display
+      this.updateCartDisplay(this.#uid);
     }
   
     removeFromCart (item , amount){
@@ -117,6 +120,7 @@ class CartManager {
       sessionStorage.setItem('cart', JSON.stringify(cartSession)); 
       let userSessionStorage = sessionStorage.getItem('cart')
       this.writeUserData(this.#uid, userSessionStorage);
+      this.updateCartDisplay(this.#uid);
     }
   
     purchase(){
@@ -138,12 +142,40 @@ class CartManager {
           }
         });
       }
+      this.updateCartDisplay(this.#uid);
     }
 
     clearCart (){
       sessionStorage.setItem('cart', 'null');
       let userSessionStorage = sessionStorage.getItem('cart');
       this.writeUserData(this.#uid, userSessionStorage);
+      this.updateCartDisplay(this.#uid);
+    }
+
+    async updateCartDisplay(uid){
+      const cartIcon = document.querySelector('.kundvagn');
+      let cartAmount = document.querySelector('.kundvagn p');
+      let cart = await this.getCart(uid);
+      this.#totalCart = 0;
+      if(!cartAmount){
+        cartAmount = document.createElement('p');
+        cartIcon.append(cartAmount);
+      }
+      if(!cart){
+        cartAmount.innerText = this.#totalCart;
+        return;
+      }
+      if(!Array.isArray(cart)){
+        cart = JSON.parse(cart.cart);
+      }
+      for(let i = 0; cart.length > i; i++){
+        this.#totalCart += cart[i].amount;
+      }
+      if(!cartAmount){
+        cartAmount = document.createElement('p');
+        cartIcon.append(cartAmount);
+      }
+      cartAmount.innerText = this.#totalCart;
     }
 
     async getProduct(id) {
@@ -159,6 +191,19 @@ class CartManager {
         return error;
       }
     }
+
+    async getCart(uid) {
+      try {
+        const snapshot = await get(child(dbRef, `Session/User/${uid}/`));
+        if (snapshot.exists()) {
+          const cart = snapshot.val();
+          return cart;
+        }
+      } catch (error) {
+        return error;
+      }
+    }
+    
   }
   
 export { CartManager };

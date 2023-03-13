@@ -34,7 +34,7 @@ class Product extends CartManager{
     let price = document.createElement("p");
     let inventory = document.createElement("p");
     let button = document.createElement("button")
-  
+    button.classList.add(`btn${this.#ProductID}`)
 
     picture.src = this.#Picture;
     name.innerText = this.#Name;

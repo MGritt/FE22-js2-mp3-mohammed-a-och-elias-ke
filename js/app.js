@@ -1,7 +1,8 @@
 import {Product} from './modules/product.js';
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js"; //får ej firebase/app att funka
 import { getDatabase, ref, child, get, set} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
 import {Kundvagn} from './modules/kundvagn.js';
+import anime from '/node_modules/animejs/lib/anime.es.js'; //animejs/lib/anime.es.js funkar inte
 const firebaseConfig = {
     apiKey: "AIzaSyAxYjwhJsPGuWHGVtR7q0LFzcjZf4MNG5g",
     authDomain: "storemp3-a5386.firebaseapp.com",
@@ -78,9 +79,15 @@ get(child(dbRef, `Product/`)).then((snapshot) => {
 });
 
 const kundvagn = document.querySelector('.kundvagn');
+let k = new Kundvagn(uid);
 kundvagn.addEventListener('click', function(){
-  let k = new Kundvagn(uid);
   k.loadCart(container);
 })
+k.updateCartDisplay(uid);
 
-
+anime({
+  targets: kundvagn,
+  rotate: '1turn',
+  easing: 'linear',
+  duration: 1000
+});

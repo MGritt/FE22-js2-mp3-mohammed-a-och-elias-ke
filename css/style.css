@@ -115,6 +115,10 @@ header {
     flex-basis: 50%;
     float: right;
   }
+
+  .kundvagn p {
+    display: inline;
+  }
   
   img {
     width: 40px;
