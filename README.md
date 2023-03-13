@@ -12,4 +12,4 @@ git clone repo
 
 npm install
 
-node js/app.js
+kör i vscode (go live)
