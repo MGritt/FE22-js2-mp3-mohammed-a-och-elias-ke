@@ -9,5 +9,7 @@ Mohammed. / skrev JS funktionerna för cart display & cart manager (addToCart, r
 Användning:
 
 git clone repo
+
 npm install
+
 node js/app.js
