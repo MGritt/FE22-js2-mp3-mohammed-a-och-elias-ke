@@ -4,3 +4,10 @@
  sidans struktur hur dom är placerade och designa asså våra produktor då, sen i js gjorde jag funktionen addToContainer..
 
 Mohammed. / skrev JS funktionerna för cart display & cart manager (addToCart, removeFromCart, clearCart) samt user session sparande i firebase och sessionStorage + sparar UID för session i cookie.
+
+
+Användning:
+
+git clone repo
+npm install
+node js/app.js
